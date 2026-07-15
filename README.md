@@ -33,3 +33,38 @@ npm run dev
 ```
 http://localhost:3000
 ``` 
+*4 - baixar pacote para conectar a aplicação com a API*
+```
+npm i axios
+```
+*5 - instalar a dependenia yup para validar o fomulario. o react-hook-form para gerenciar o formulario. o resolvers para conectar react-hook-form com yup*
+```
+npm install @hookform/resolvers yup react-hook-form
+```
+## como enviar e baixar os arquivos do git rub
+
+*1 - Baixar os arquivos do git*
+```
+git clone -b <branch_name> <repository_url> .
+```
+*2 - Verificar em qual branch*
+```
+git branch
+```
+*3 - Baixar as atualizações do Github*
+```
+git pull
+```
+*4 - adicionar todos os arquivos modificados no staging area - area de preparação*
+```
+git add
+```
+*5 - Commit representa um conjunto de alterações em um especifico da historia do seu projeto, registra apenas as alterações adicionais ao indice de preparação. O comando -m permite que insira a mensagem de commit diretamente na linha de comando* 
+```
+git commit -m "base projeto"
+```
+*6 - enviar os commits locais, para um repositorio remoto.*
+```
+git push <remote> <branch>
+git push origin develop
+```

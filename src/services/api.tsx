@@ -9,5 +9,22 @@ const instance: AxiosInstance = axios.create({
         "Content-Type": "application/json", //definir cabeçalho padrão para envio de dados no formato json
     }
 })
+
+//interceptor para adicionar o token automaticamente nas requisições
+instance.interceptors.request.use((config)=> {
+    //verificar se esta no cliente antes de acessar o localStorage
+    if(typeof window !== "undefined"){
+        const token = localStorage.getItem("token")
+        if(token) {
+            config.headers.Authorization = `Bearer ${token}` 
+        }
+    }
+    return config
+}, (error) =>{
+    return Promise.reject(error)
+}
+
+)
+
 //exportar instancia para ser utilizada em outras partes do projeto
 export default instance

@@ -10,6 +10,8 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 //imporar função para gerenciar o formulario
 import {useForm} from "react-hook-form"
+//importar componente de layout
+import Layout from "@/app/components/layout";
 
 interface Financial{
     title: string,
@@ -134,10 +136,7 @@ export default function FinancialGoals() {
     },[id]) 
 
     return(
-        <div>
-            <h1>Editar registro de Meta Financeira</h1>
-            <br />
-
+        <Layout>
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
             {/* mostrar mensagem de erro caso tenha */}
@@ -146,114 +145,140 @@ export default function FinancialGoals() {
             {success && <p>{success}</p>}
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                        <label htmlFor="titleFinancial">Titulo: </label>
-                        <input 
-                            id="titleFinancial"
-                            type="text"
-                            placeholder="Titulo da meta financeira"
-                            {...register('title')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.title && <p>{errors.title.message}</p>}
+
+                // conteudo principal
+                <main className="main-content">
+                    {/* titulo e trilha de navegação */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Metas Financeiras</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className="breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <a href={`/financialGoals/list`} className="breadcrumb-link">Meta Financeira</a>
+                                <span>/</span>
+                                <span>Editar</span>
+                            </nav>
+                        </div>
                     </div>
 
-                    <br />
-                    
-                    <div>
-                        <label htmlFor="descriptionFinancial">Descrição: </label>
-                        <input 
-                            id="descriptionFinancial"
-                            type="text"
-                            placeholder="Descrição"
-                            {...register('description')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.description && <p>{errors.description.message}</p>}
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Editar Meta Financeira</h3>
+                            <div className="content-box-btn">
+                                <a href={`/financialGoals/list`} className="btn-info aling-icon-btn">
+                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    <span>Listar</span>
+                                </a>
+
+                                <a href={`/financialGoals/${id}`}  className="btn-primary aling-icon-btn">
+                                    {/* <!-- svg eye (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                    <span>Vizualizar</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb-4">
+                                <label htmlFor="titleFinancial" className="form-label">Titulo: </label>
+                                <input 
+                                    id="titleFinancial"
+                                    type="text"
+                                    placeholder="Titulo da meta financeira"
+                                    {...register('title')}
+                                    className="form-input" 
+                                />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.title && <p>{errors.title.message}</p>}
+                            </div>
+                            <br />
+                            
+                            <div>
+                                <label htmlFor="descriptionFinancial" className="form-label">Descrição: </label>
+                                <input 
+                                    id="descriptionFinancial"
+                                    type="text"
+                                    placeholder="Descrição"
+                                    {...register('description')}
+                                    className="form-input" 
+                                />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.description && <p>{errors.description.message}</p>}
+                            </div>
+                            <br />
+                            
+                            <div>
+                                <label htmlFor="targetAmountFinancial" className="form-label">Valor alvo: </label>
+                                <input 
+                                    id="targetAmountFinancial"
+                                    type="text"
+                                    placeholder="valor desejado"
+                                    {...register('target_amount')}
+                                    className="form-input" 
+                                />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.target_amount && <p>{errors.target_amount.message}</p>}
+                            </div>
+                            <br />
+                            
+                            <div>
+                                <label htmlFor="currentAmountFinancial" className="form-label">Valor atual: </label>
+                                <input 
+                                    id="currentAmountFinancial"
+                                    type="text"
+                                    placeholder="valor atual"
+                                    {...register('current_amount')}
+                                    className="form-input" 
+                                />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.current_amount && <p>{errors.current_amount.message}</p>}
+                            </div>
+                            <br />
+                            
+                            <div>
+                                <label htmlFor="targetDateFinancial" className="form-label">Data alvo: </label>
+                                <input 
+                                    id="targetDateFinancial"
+                                    type="date"
+                                    {...register('target_date')}
+                                    className="form-input" 
+                                />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.target_date && <p>{errors.target_date.message}</p>}
+                            </div>
+                            <br />
+
+                            <div>
+                                <label htmlFor="statusFinancial" className="form-label">Status: </label>
+                                <select 
+                                    id="statusFinancial"
+                                    {...register("status")}
+                                    className="border"
+                                    >
+                                    <option value="active" style={{color:"#000000"}}>Ativa</option>
+                                    <option value="completed" style={{color:"#000000"}}>Completa</option>
+                                </select>
+                            </div>
+
+                            <br />
+                            
+                            <button type="submit" disabled = {loading} className="btn-success">
+                                {loading ? "Atualizando..." : "Atualizar"}
+                            </button>
+                        </form>
                     </div>
-
-                    <br />
-                    
-                    <div>
-                        <label htmlFor="targetAmountFinancial">Valor alvo: </label>
-                        <input 
-                            id="targetAmountFinancial"
-                            type="text"
-                            placeholder="valor desejado"
-                            {...register('target_amount')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.target_amount && <p>{errors.target_amount.message}</p>}
-                    </div>
-
-                    <br />
-                    
-                    <div>
-                        <label htmlFor="currentAmountFinancial">Valor atual: </label>
-                        <input 
-                            id="currentAmountFinancial"
-                            type="text"
-                            placeholder="valor atual"
-                            {...register('current_amount')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.current_amount && <p>{errors.current_amount.message}</p>}
-                    </div>
-
-                    <br />
-                    
-                    <div>
-                        <label htmlFor="targetDateFinancial">Data alvo: </label>
-                        <input 
-                            id="targetDateFinancial"
-                            type="date"
-                            {...register('target_date')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.target_date && <p>{errors.target_date.message}</p>}
-                    </div>
-
-                    <br />
-
-                    <div>
-                        <label htmlFor="statusFinancial">Status: </label>
-                        <select 
-                            id="statusFinancial"
-                            {...register("status")}
-                            className="border"
-                            >
-                            <option value="active" style={{color:"#000000"}}>Ativa</option>
-                            <option value="completed" style={{color:"#000000"}}>Completa</option>
-                        </select>
-                    </div>
-
-                    <br />
-
-                    <div>
-                        <label htmlFor="usersIdFinancial">id usuario: </label>
-                        <input 
-                            id="usersIdFinancial"
-                            type="number"
-                            {...register('usersId')}
-                            className="border" 
-                        />
-                    {/*exibir mensagem de erro na validação do campo*/}
-                    {errors.usersId && <p>{errors.usersId.message}</p>}
-                    </div>
-
-                    <br />
-                    
-                    <button type="submit" disabled = {loading}>
-                        {loading ? "Atualizando..." : "Atualizar"}
-                    </button>
-                </form>
+                </main>
             )}
-        </div>
+        </Layout>
     )
 }

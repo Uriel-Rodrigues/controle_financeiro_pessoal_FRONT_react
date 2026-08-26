@@ -10,7 +10,8 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 //imporar função para gerenciar o formulario
 import {useForm} from "react-hook-form"
-import { Anybody } from "next/font/google";
+// importar componente de layout
+import Layout from "@/app/components/layout";
 
 interface Transaction {
     type: string,
@@ -126,10 +127,7 @@ export default function Transactions() {
     },[id]) 
 
     return(
-        <div>
-
-            <h1> Editar registro de Transação </h1>
-            <br/>
+        <Layout>
 
             {/* mostrar carregando */}
             {loading && <p>Carregando...</p>}
@@ -139,80 +137,120 @@ export default function Transactions() {
             {success && <p>{success}</p>}
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
-                <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <label htmlFor="typeTransaction">Tipo: </label>
-                            <select
-                                id="typeTransaction" 
-                                className="border"
-                                {...register("type")}
-                            >
-                                <option value="income" style={{color:"#000000"}}>Receita</option>
-                                <option value="expense" style={{color:"#000000"}}>Despesa</option>
-                            </select>
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Transções</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className="breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <a href={`/transaction/list`} className="breadcrumb-link">Transções</a>
+                                <span>/</span>
+                                <span>Editar</span>
+                            </nav>
+                        </div>
+                    </div>
 
-                            {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.type && <p>{errors.type.message}</p>}
-                        </div>
-                        <br/>
-                        <div className="flex items-center gap-2">
-                            <label htmlFor="descriptionTransaction">Descrição: </label>
-                            <textarea 
-                                id="descriptionTransaction"
-                                placeholder="Descrição"
-                                className="border"
-                                {...register("description")}
-                            />
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Editar Transação</h3>
+                            <div className="content-box-btn">
+                                <a href={`/transaction/list`} className="btn-info aling-icon-btn">
+                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
 
-                            {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.description && <p>{errors.description.message}</p>}
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    <span>Listar</span>
+                                </a>
+
+                                <a href={`/transaction/${id}`}  className="btn-primary aling-icon-btn">
+                                    {/* <!-- svg eye (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                    <span>Vizualizar</span>
+                                </a>
+                            </div>
                         </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="amountTransaction">Valor da Transação: </label>
-                            <input 
-                                id="amountTransaction"
-                                type="number" 
-                                placeholder="Valor da Transação"
-                                className="border"
-                                {...register("amount")}
-                            />
-                            {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.amount && <p>{errors.amount.message}</p>}
-                        </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="transationDateTransaction">Data da Transação: </label>
-                            <input 
-                                id="transationDateTransaction"
-                                type="date" 
-                                placeholder="Data da Transação"
-                                className="border"
-                                {...register("transation_date")}
-                            />
-                            {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.transation_date && <p>{errors.transation_date.message}</p>}
-                        </div>
-                        <br/>
-                        <div  className="flex items-center gap-2">
-                            <label htmlFor="observationsTransaction">Observações: </label>
-                            <textarea 
-                                id="observationsTransaction"
-                                placeholder="Observações"
-                                className="border"
-                                {...register("observations")}
-                            />
-                            {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.observations && <p>{errors.observations.message}</p>}
-                        </div>
-                        <br/>
-                        <button type="submit" disabled={loading}>
-                            {loading ? "Cadastrando..." : "Cadastrar"}
-                        </button>
-                    </form>
-                </div>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb-4">
+                                <label htmlFor="typeTransaction" className="form-label">Tipo: </label>
+                                <select
+                                    id="typeTransaction" 
+                                    className="form-input"
+                                    {...register("type")}
+                                >
+                                    <option value="income" style={{color:"#000000"}}>Receita</option>
+                                    <option value="expense" style={{color:"#000000"}}>Despesa</option>
+                                </select>
+
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.type && <p>{errors.type.message}</p>}
+                            </div>
+                            <br/>
+                            <div className="flex items-center gap-2 mb-4" >
+                                <label htmlFor="descriptionTransaction" className="form-label">Descrição: </label>
+                                <textarea 
+                                    id="descriptionTransaction"
+                                    placeholder="Descrição"
+                                    className="form-input"
+                                    {...register("description")}
+                                />
+
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.description && <p>{errors.description.message}</p>}
+                            </div>
+                            <br/>
+                            <div className="mb-4">
+                                <label htmlFor="amountTransaction" className="form-label">Valor da Transação: </label>
+                                <input 
+                                    id="amountTransaction"
+                                    type="number" 
+                                    placeholder="Valor da Transação"
+                                    className="form-input"
+                                    {...register("amount")}
+                                />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.amount && <p>{errors.amount.message}</p>}
+                            </div>
+                            <br/>
+                            <div className="mb-4">
+                                <label htmlFor="transationDateTransaction" className="form-label">Data da Transação: </label>
+                                <input 
+                                    id="transationDateTransaction"
+                                    type="date" 
+                                    placeholder="Data da Transação"
+                                    className="form-input"
+                                    {...register("transation_date")}
+                                />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.transation_date && <p>{errors.transation_date.message}</p>}
+                            </div>
+                            <br/>
+                            <div  className="flex items-center gap-2 mb-4">
+                                <label htmlFor="observationsTransaction" className="form-label">Observações: </label>
+                                <textarea 
+                                    id="observationsTransaction"
+                                    placeholder="Observações"
+                                    className="form-input"
+                                    {...register("observations")}
+                                />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.observations && <p>{errors.observations.message}</p>}
+                            </div>
+                            <br/>
+                            <button type="submit" disabled={loading} className="btn-success">
+                                {loading ? "Cadastrando..." : "Cadastrar"}
+                            </button>
+                        </form>
+                    </div>
+                </main>
             )}
-        </div>
+        </Layout>
     )
 }

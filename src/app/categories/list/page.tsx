@@ -7,7 +7,11 @@ import { useState ,useEffect } from "react";
 import Pagination from "@/app/components/pagination";
 //importar biblioteca para links
 import Link from "next/link";
+// importar componente botão de deletar
 import DeleteButton from "@/app/components/deleteButton";
+// importar componente de layout
+import Layout from "@/app/components/layout";
+
 
 interface Category{
     id: number,
@@ -36,13 +40,13 @@ export default function Categories(){
             //iniciar carregamento
             setLoading(true)
             //realiazar requisição
-            const response = await instance.get(`categories/list?page=${page}&limit=3`)
+            const response = await instance.get(`/categories/list?page=${page}&limit=3`)
             //atualizar dados de categoria com a resposata da API
             setCategories(response.data.data)
             //atualizar pagina atual
             setCurrentPage(response.data.currentPage)
             //atualizar ultima pagina
-            setCurrentPage(response.data.lastPage)
+            setLastPage(response.data.lastPage)
             //terminar carregamento 
             setLoading(false)
 
@@ -77,14 +81,12 @@ export default function Categories(){
     }
 
     return (
-        <div>
-
-            <h1>Categories List</h1>
-            <a href="/categories/create">Criar Categoria</a>
+        <Layout>
+            {/* <a href="/categories/create">Criar Categoria</a> */}
             {/* mensagem caso nao exista registros */}
-            {!loading && !error && categories.length === 0 && (
+            {/* {!loading && !error && categories.length === 0 && (
                 <p>Nenhum registro encontrado!</p>
-            )}
+            )} */}
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
             {/* mostrar menssagem de erro caso tenha */}
@@ -93,46 +95,74 @@ export default function Categories(){
             {success && <p>{success}</p>}
 
             {/* mostrar tabela com registros se tudo ok */}
-            {!loading && !error && categories.length === 0 && (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>name</th>
-                            <th>type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((categories) => (
-                           <tr key={categories.id}>
-                            <td>{categories.id}</td>
-                            <td>{categories.name}</td>
-                            <td>{categories.type}</td>
-                            <td>
-                                <Link href={`/categorie/${categories.id}`}>visualizar</Link>
-                                <Link href={`/categorie/${categories.id}`}>editar</Link>
-                                <DeleteButton
-                                    id={String(categories.id)}
-                                    route="categories"
-                                    onSuccess={handleSuccess}
-                                    setError={setError}
-                                    setSuccess={setSuccess}
-                                />
-                            </td>
-                        </tr>     
-                        ))}
-                    </tbody>
-                </table>
+            {!loading && !error && (
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Categorias</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className=" breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <span>Categorias</span>
+                            </nav>
+                        </div>
+                    </div>
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Categorias</h3>
+                            <div className="content-box-btn">
+                                <a href={`/categories/create`} className="btn-success aling-icon-btn">
+                                    {/* <!-- svg user-plus (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                    </svg>
+                                    <span>Cadastrar categoria</span>
+                                </a>
+                            </div>
+                        </div>
+                        {/* <!-- Criação da tabela com Usuarios (ações) --> */}
+                        <div className="table-container">
+                            <table className="table">
+                                <thead>
+                                    <tr className="table-row-header">
+                                        <th className="table-header">id</th>
+                                        <th className="table-header">name</th>
+                                        <th className="table-header">type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categories.map((categories) => (
+                                    <tr key={categories.id} className="table-row-body">
+                                        <td className="table-body">{categories.id}</td>
+                                        <td className="table-body">{categories.name}</td>
+                                        <td className="table-body">{categories.type}</td>
+                                        <td className="table-body table-actions">
+                                            <Link href={`/categories/${categories.id}`} className="btn-primary">visualizar</Link>
+                                            <Link href={`/categories/edit?id=${categories.id}`} className="btn-warning hidden md:inline-block">editar</Link>
+                                            <DeleteButton
+                                                id={String(categories.id)}
+                                                route="categories"
+                                                onSuccess={handleSuccess}
+                                                setError={setError}
+                                                setSuccess={setSuccess}
+                                            />
+                                        </td>
+                                    </tr>     
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* criar paginação */}
+                        <Pagination
+                            currentPage={currentPage}
+                            lastPage={lastPage}
+                            onPaginationChange={setCurrentPage}
+                        />
+                    </div>
+                </main>
             )}
-
-            {/* criar paginação */}
-
-            <Pagination
-                currentPage={currentPage}
-                lastPage={lastPage}
-                onPaginationChange={setCurrentPage}
-            />
-
-        </div>
+        </Layout>
     )
 }

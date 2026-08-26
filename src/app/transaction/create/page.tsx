@@ -9,6 +9,9 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 //imporar função para gerenciar o formulario
 import {useForm} from "react-hook-form"
+// importar componente de layout 
+import Layout from "@/app/components/layout";
+import { useParams } from "next/navigation";
 
 interface Transaction {
     type: string,
@@ -77,11 +80,7 @@ export default function Transactions () {
     }
 
     return(
-        <div>
-
-            <h1> Criar novo Registro de Transação </h1>
-            <br/>
-
+        <Layout>
             {/* mostrar carregando */}
             {loading && <p>Carregando...</p>}
             {/* mostar mensagem deerro caso tenha */}
@@ -91,81 +90,110 @@ export default function Transactions () {
 
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
-                <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <label htmlFor="typeTransaction">Tipo: </label>
-                            <select
-                                id="typeTransaction" 
-                                className="border"
-                                {...register("type")}
-                            >
-                                <option value="income" style={{color:"#000000"}}>Receita</option>
-                                <option value="expense" style={{color:"#000000"}}>Despesa</option>
-                            </select>
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Transações</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className="breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <a href={`/transaction/list`} className="breadcrumb-link">Transações</a>
+                                <span>/</span>
+                                <span>Editar</span>
+                            </nav>
                         </div>
-                        <br/>
-                        <div className="flex items-center gap-2">
-                            <label htmlFor="descriptionTransaction">Descrição: </label>
-                            <textarea 
-                                id="descriptionTransaction"
-                                placeholder="Descrição"
-                                className="border"
-                                {...register("description")}
-                            />
-                        </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="amountTransaction">Valor da Transação: </label>
-                            <input 
-                                id="amountTransaction"
-                                type="number" 
-                                placeholder="Valor da Transação"
-                                className="border"
-                                {...register("amount")}
-                            />
-                        </div>
-                        <br/>
-                        <br/>
-                        <div>
-                            <label htmlFor="transationDateTransaction">Data da Transação: </label>
-                            <input 
-                                id="transationDateTransaction"
-                                type="date" 
-                                placeholder="Data da Transação"
-                                className="border"
-                                {...register("transation_date")}
-                            />
-                        </div>
-                        <br/>
-                        <div  className="flex items-center gap-2">
-                            <label htmlFor="observationsTransaction">Observações: </label>
-                            <textarea 
-                                id="observationsTransaction"
-                                placeholder="Observações"
-                                className="border"
-                                {...register("observations")}
-                            />
-                        </div>            
-                        <br/>
+                    </div>
 
-                        <div>
-                            <label htmlFor="idCategoriesTransaction">id: </label>
-                            <input 
-                                id="idCategoriesTransaction"
-                                type="number" 
-                                placeholder=" id de categoria"
-                                className="border"
-                                {...register("categoriesId")}
-                            />
+                    <div>
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Cadastrar Transação</h3>
+                            <div className="content-box-btn">
+                                <a href={`/transaction/list`} className="btn-info aling-icon-btn">
+                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    <span>Listar</span>
+                                </a>
+                            </div>
                         </div>
-                        <br/>
-                        <button type="submit" disabled={loading}>
-                            {loading ? "Cadastrando..." : "Cadastrar"}
-                        </button>
-                    </form>
-                </div>
+
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb-4">
+                                <label htmlFor="typeTransaction" className="form-label">Tipo: </label>
+                                <select
+                                    id="typeTransaction" 
+                                    className="form-input"
+                                    {...register("type")}
+                                >
+                                    <option value="income" style={{color:"#000000"}}>Receita</option>
+                                    <option value="expense" style={{color:"#000000"}}>Despesa</option>
+                                </select>
+                            </div>
+                            <br/>
+                            <div className="flex items-center gap-2 mb-4">
+                                <label htmlFor="descriptionTransaction" className="form-label">Descrição: </label>
+                                <textarea 
+                                    id="descriptionTransaction"
+                                    placeholder="Descrição"
+                                    className="form-input"
+                                    {...register("description")}
+                                />
+                            </div>
+                            <br/>
+                            <div className="mb-4">
+                                <label htmlFor="amountTransaction" className="form-label">Valor da Transação: </label>
+                                <input 
+                                    id="amountTransaction"
+                                    type="number" 
+                                    placeholder="Valor da Transação"
+                                    className="form-input"
+                                    {...register("amount")}
+                                />
+                            </div>
+                            <br/>
+                            <div className="mb-4">
+                                <label htmlFor="transationDateTransaction" className="form-label">Data da Transação: </label>
+                                <input 
+                                    id="transationDateTransaction"
+                                    type="date" 
+                                    placeholder="Data da Transação"
+                                    className="form-input"
+                                    {...register("transation_date")}
+                                />
+                            </div>
+                            <br/>
+                            <div  className="flex items-center gap-2 mb-4">
+                                <label htmlFor="observationsTransaction" className="form-label">Observações: </label>
+                                <textarea 
+                                    id="observationsTransaction"
+                                    placeholder="Observações"
+                                    className="form-input"
+                                    {...register("observations")}
+                                />
+                            </div>            
+                            <br/>
+
+                            <div className="mb-4">
+                                <label htmlFor="idCategoriesTransaction" className="form-label">id: </label>
+                                <input 
+                                    id="idCategoriesTransaction"
+                                    type="number" 
+                                    placeholder=" id de categoria"
+                                    className="form-input"
+                                    {...register("categoriesId")}
+                                />
+                            </div>
+                            <br/>
+                            <button type="submit" disabled={loading} className="btn-success">
+                                {loading ? "Cadastrando..." : "Cadastrar"}
+                            </button>
+                        </form>
+                    </div>
+                </main>
             )}
-        </div>
+        </Layout>
     )
 }

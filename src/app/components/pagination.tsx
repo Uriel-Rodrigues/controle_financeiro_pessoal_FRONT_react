@@ -6,13 +6,13 @@ interface PaginationProps {
 
 const Pagination = ({currentPage, lastPage, onPaginationChange}: PaginationProps) => {
     return(
-        <div>
-            <span>pagina {currentPage} de {lastPage}</span>{' '}
-            <button onClick={() => onPaginationChange(currentPage - 1)} disabled = {currentPage === 1}> Anterior </button>{' '}
+        <div className="btn-group-login">
+            <span className="link-login">pagina {currentPage} de {lastPage}</span>{' '}
+            <button onClick={() => onPaginationChange(currentPage - 1)} disabled = {currentPage === 1} className="link-login"> Anterior </button>{' '}
 
-            <span>{currentPage}</span>{' '}
+            <button disabled className="link-login">{currentPage}</button>{' '}
 
-            <button onClick={() => onPaginationChange(currentPage + 1)} disabled ={lastPage === currentPage} >Proxima</button>
+            <button onClick={() => onPaginationChange(currentPage + 1)} disabled ={lastPage === currentPage} className="link-login">Proxima</button>
         </div>
     )
 } 

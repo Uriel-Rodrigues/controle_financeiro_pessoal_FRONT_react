@@ -9,6 +9,9 @@ import * as yup from "yup"
 import { yupResolver } from "@hookform/resolvers/yup"
 //imporar função para gerenciar o formulario
 import {useForm} from "react-hook-form"
+// importar componente de Layout
+import Layout from "@/app/components/layout";
+
 
 interface FinancialGoals {
     title: string,
@@ -75,11 +78,7 @@ export default function FinancialGoals() {
     }
 
     return(
-        <div>
-
-            <h1> Criar Nova meta Financeira</h1>
-            <br/>
-
+        <Layout>
             {/* mostrar carregando */}
             {loading && <p>Carregando...</p>}
             {/* mostar mensagem deerro caso tenha */}
@@ -89,80 +88,109 @@ export default function FinancialGoals() {
 
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
-                <div>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div>
-                            <label htmlFor="titleFinancial">Titulo: </label>
-                            <input 
-                                id="titleFinancial"
-                                type="text" 
-                                placeholder="Titulo da meta financeira"
-                                className="border"
-                                {...register("title")}
-                            />
+                // conteudo principal
+                <main  className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Metas Financeiras</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className="breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <a href={`/financialGoals/list`} className="breadcrumb-link">Meta Financeira</a>
+                                <span>/</span>
+                                <span>Cadastrar</span>
+                            </nav>
                         </div>
-                        <br/>
-                        <div className="flex items-center gap-2">
-                            <label htmlFor="descriptionFinancial" >Descrição: </label>
-                            <textarea
-                                id="descriptionFinancial"
-                                className="border"
-                                placeholder="Descrição"
-                                {...register("description")}
-                            />
+                    </div>
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Cadastrar Meta Financeira</h3>
+                            <div className="content-box-btn">
+                                <a href={`/financialGoals/list`}  className="btn-info aling-icon-btn">
+                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                    </svg>
+                                    <span>Listar</span>
+                                </a>
+                            </div>
                         </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="targetAmountFinancial">valor alvo: </label>
-                            <input 
-                                id="targetAmountFinancial"
-                                type="number"
-                                className="border"
-                                placeholder="valor desejado"
-                                {...register("target_amount")}
-                            />
-                        </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="currentAmountFinancial">Valor atual: </label>
-                            <input 
-                                id="currentAmountFinancial"
-                                type="number"
-                                className="border"
-                                placeholder="valor atual"
-                                {...register("current_amount")}
-                            />
-                        </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="targetDateFinancial">Data alvo: </label>
-                            <input 
-                                id="targetDateFinancial"
-                                type="date"
-                                className="border"
-                                {...register("target_date")}
-                            />
-                        </div>
-                        <br/>
-                        <div>
-                            <label htmlFor="statusFinancial">Status: </label>
-                            <select 
-                                id="statusFinancial"
-                                className="border"
-                                {...register("status")}
-                                >
-                                <option value="active" style={{color:"#000000"}}>Ativa</option>
-                                <option value="completed" style={{color:"#000000"}}>Completa</option>
-                            </select>
-                        </div>
-                        <br/>
-                        
-                        <button type="submit" disabled={loading}>
-                            {loading ? "Cadastrando..." : "Cadastrar"}
-                        </button>
-                    </form>
-                </div>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb-4">
+                                <label htmlFor="titleFinancial" className="form-label">Titulo: </label>
+                                <input 
+                                    id="titleFinancial"
+                                    type="text" 
+                                    placeholder="Titulo da meta financeira"
+                                    className="form-input"
+                                    {...register("title")}
+                                />
+                            </div>
+                            <br/>
+                            <div className="flex items-center gap-2">
+                                <label htmlFor="descriptionFinancial" className="form-label">Descrição: </label>
+                                <textarea
+                                    id="descriptionFinancial"
+                                    className="form-input"
+                                    placeholder="Descrição"
+                                    {...register("description")}
+                                />
+                            </div>
+                            <br/>
+                            <div>
+                                <label htmlFor="targetAmountFinancial" className="form-label">valor alvo: </label>
+                                <input 
+                                    id="targetAmountFinancial"
+                                    type="number"
+                                    className="form-input"
+                                    placeholder="valor desejado"
+                                    {...register("target_amount")}
+                                />
+                            </div>
+                            <br/>
+                            <div>
+                                <label htmlFor="currentAmountFinancial" className="form-label">Valor atual: </label>
+                                <input 
+                                    id="currentAmountFinancial"
+                                    type="number"
+                                    className="form-input"
+                                    placeholder="valor atual"
+                                    {...register("current_amount")}
+                                />
+                            </div>
+                            <br/>
+                            <div>
+                                <label htmlFor="targetDateFinancial" className="form-label">Data alvo: </label>
+                                <input 
+                                    id="targetDateFinancial"
+                                    type="date"
+                                    className="form-input"
+                                    {...register("target_date")}
+                                />
+                            </div>
+                            <br/>
+                            <div>
+                                <label htmlFor="statusFinancial" className="form-label">Status: </label>
+                                <select 
+                                    id="statusFinancial"
+                                    className="form-input"
+                                    {...register("status")}
+                                    >
+                                    <option value="active" style={{color:"#000000"}}>Ativa</option>
+                                    <option value="completed" style={{color:"#000000"}}>Completa</option>
+                                </select>
+                            </div>
+                            <br/>
+                            
+                            <button type="submit" disabled={loading} className="btn-success">
+                                {loading ? "Cadastrando..." : "Cadastrar"}
+                            </button>
+                        </form>
+                    </div>
+                </main>
             )}
-        </div>
+        </Layout>
     )
 }

@@ -8,6 +8,8 @@ import Pagination from "@/app/components/pagination";
 import Link from "next/link";
 //importar componente para deletar
 import DeleteButton from "@/app/components/deleteButton";
+//importar componente de Layout
+import Layout from "@/app/components/layout";
 
 interface Transactions {
     id: number,
@@ -80,15 +82,8 @@ export default function Transaction (){
     }
 
     return (
-        <div>
-
-            <h1>Transaction List</h1>
-
-            <a href="/transaction/create">Criar Transação</a>
-            {/* mensagem caso nao exista registros */}
-            {!loading && !error && transaction.length === 0 && (
-                <p>Nenhum registro encontrado!</p>
-            )}
+        <Layout>
+            {/* transaction.length === 0 && */}
 
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
@@ -96,52 +91,86 @@ export default function Transaction (){
             {error && <p>{error}</p>}
             {/* mostrar menssagem sucesso caso tenha */}
             {success && <p>{success}</p>}
-
             {/* mostrar tabela com registros se tudo ok */}
-            {!loading && !error && transaction.length === 0 &&  (
-                <table>
-                    <thead>
-                        <tr>
-                            <th>id</th>
-                            <th>type</th>
-                            <th>description</th>
-                            <th>transation_date</th>
-                            <th>observations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transaction.map((transaction) => (
-                           <tr key={transaction.id}>
-                            <td>{transaction.id}</td>
-                            <td>{transaction.type}</td>
-                            <td>{transaction.description}</td>
-                            <td>{transaction.transation_date}</td>
-                            <td>{transaction.observations}</td>
-                            <td>
-                                <Link href={`/transaction/${transaction.id}`}>visualizar</Link>
-                                <Link href={`/transaction/edit?id=${transaction.id}`}> editar</Link>
-                                <DeleteButton
-                                    id={String(transaction.id)}
-                                    route="transaction"
-                                    onSuccess={handleSuccess}
-                                    setError={setError}
-                                    setSuccess={setSuccess}
-                                />
-                            
-                            </td>
-                        </tr>     
-                        ))}
-                    </tbody>
-                </table>
+            {!loading && !error && (
+                <main className="main-content">
+                    {/* <!-- titulo a trilha de navegação --> */}
+                    <div className="content-wrapper">
+                        <div className="content-header">
+                            <h2 className="content-title">Transações</h2>
+                            <nav className="breadcrumb">
+                                <a href="/dashboard" className=" breadcrumb-link">Dashboard</a>
+                                <span>/</span>
+                                <span>Transações</span>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div className="content-box">
+                        <div className="content-box-header">
+                            <h3 className="content-box-title">Transações</h3>
+                            <div className="content-box-btn">
+                                <a href={`/transaction/create`} className="btn-success aling-icon-btn">
+                                    {/* <!-- svg user-plus (Heroicons) --> */}
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
+
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                    </svg>
+                                    <span>Cadastrar</span>
+                                </a>
+                            </div>
+                        </div>
+                         {/* <!-- Criação da tabela com transações (ações) --> */}
+                        <div className="table-container">
+                            <table className="table">
+                                <thead>
+                                    <tr className="table-row-header">
+                                        <th className="table-header">id</th>
+                                        <th className="table-header">type</th>
+                                        <th className="table-header">description</th>
+                                        <th className="table-header">transation_date</th>
+                                        <th className="table-header">observations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {transaction.map((transaction) => (
+                                    <tr key={transaction.id} className="table-row-body">
+                                        <td className="table-body">{transaction.id}</td>
+                                        <td className="table-body">{transaction.type}</td>
+                                        <td className="table-body">{transaction.description}</td>
+                                        <td className="table-body">{transaction.transation_date}</td>
+                                        <td className="table-body">{transaction.observations}</td>
+                                        <td className="table-body">
+                                            <Link href={`/transaction/${transaction.id}`} className="btn-primary">visualizar</Link>
+                                            <Link href={`/transaction/edit?id=${transaction.id}`} className="btn-warning hidden md:inline-block"> editar</Link>
+                                            <DeleteButton
+                                                id={String(transaction.id)}
+                                                route="transaction"
+                                                onSuccess={handleSuccess}
+                                                setError={setError}
+                                                setSuccess={setSuccess}
+                                            />
+                                        
+                                        </td>
+                                    </tr>     
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        {/* mensagem caso nao exista registros */} 
+                        {!loading && !error && transaction.length === 0 && (
+                        <span className="content-box-title">Nenhum registro encontrado!</span>   
+                        )}
+                        {/* criar paginação */}
+                        <Pagination
+                            currentPage={currentPage}
+                            lastPage={lastPage}
+                            onPaginationChange={setCurrentPage}
+                        />
+                    </div>
+                </main>
             )}
 
-            {/* criar paginação */}
-            <Pagination
-                currentPage={currentPage}
-                lastPage={lastPage}
-                onPaginationChange={setCurrentPage}
-            />
-
-        </div>
+        </Layout>
     )
 }

@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar componente de layout
 import Layout from "@/app/components/layout";
+//importar componente de alerta 
+import AlertMessage from "@/app/components/alertMessage";
 
 interface Category{
     name:string,
@@ -119,6 +121,8 @@ export default function Categories() {
                                     className="form-input"
                                     {...register("name")}
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
                             </div>
                             <br/>
                             <div>

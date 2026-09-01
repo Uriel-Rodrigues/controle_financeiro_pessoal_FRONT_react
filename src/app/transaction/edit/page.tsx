@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar componente de layout
 import Layout from "@/app/components/layout";
+//importar componente de alerta 
+import AlertMessage from "@/app/components/alertMessage";
 
 interface Transaction {
     type: string,
@@ -188,9 +190,6 @@ export default function Transactions() {
                                     <option value="income" style={{color:"#000000"}}>Receita</option>
                                     <option value="expense" style={{color:"#000000"}}>Despesa</option>
                                 </select>
-
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.type && <p>{errors.type.message}</p>}
                             </div>
                             <br/>
                             <div className="flex items-center gap-2 mb-4" >
@@ -201,10 +200,9 @@ export default function Transactions() {
                                     className="form-input"
                                     {...register("description")}
                                 />
-
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.description && <p>{errors.description.message}</p>}
                             </div>
+                             {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
                             <br/>
                             <div className="mb-4">
                                 <label htmlFor="amountTransaction" className="form-label">Valor da Transação: </label>
@@ -215,8 +213,8 @@ export default function Transactions() {
                                     className="form-input"
                                     {...register("amount")}
                                 />
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.amount && <p>{errors.amount.message}</p>}
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.amount && <AlertMessage type="error" message={errors.amount.message ?? null}/>}
                             </div>
                             <br/>
                             <div className="mb-4">
@@ -228,8 +226,8 @@ export default function Transactions() {
                                     className="form-input"
                                     {...register("transation_date")}
                                 />
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.transation_date && <p>{errors.transation_date.message}</p>}
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.transation_date && <AlertMessage type="error" message={errors.transation_date.message ?? null}/>}
                             </div>
                             <br/>
                             <div  className="flex items-center gap-2 mb-4">
@@ -240,8 +238,8 @@ export default function Transactions() {
                                     className="form-input"
                                     {...register("observations")}
                                 />
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.observations && <p>{errors.observations.message}</p>}
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.observations && <AlertMessage type="error" message={errors.observations.message ?? null}/>}
                             </div>
                             <br/>
                             <button type="submit" disabled={loading} className="btn-success">

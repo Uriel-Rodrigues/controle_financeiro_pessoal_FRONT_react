@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar componente de Layout
 import Layout from "@/app/components/layout";
+// importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 //esquema para validação de formulario
 const schema = yup.object().shape({
@@ -119,9 +121,9 @@ export default function User () {
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
             {/* mostrar mensagem de erro caso tenha */}
-            {error && <p>{error}</p>}
+            <AlertMessage type="error" message={error}/>
             {/* mostrar mensagem de sucesso caso tenha */}
-            {success && <p>{success}</p>}
+            <AlertMessage type="success" message={success}/>
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
                 <main className="main-content">
@@ -167,7 +169,7 @@ export default function User () {
                                     className="form-input" 
                                 />
                             {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.name && <p>{errors.name.message}</p>}
+                            {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
                             </div>
 
                             <br />
@@ -181,6 +183,8 @@ export default function User () {
                                     {...register('email')} 
                                     className="form-input"
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.email && <AlertMessage type="error" message={errors.email.message ?? null}/>}
                             </div>
 
                             <br />

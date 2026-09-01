@@ -9,7 +9,7 @@ interface DeleteButtonProps{
     setSuccess: (menssage: string | null) => void //função de callback para retornar menssagem de sucesso
 }
 
-export default function DeleteButton({route, onSuccess, setError, setSuccess}: DeleteButtonProps){
+export default function DeleteUserButton({route, onSuccess, setError, setSuccess}: DeleteButtonProps){
     //estado para controle de carregamento 
     const [loading, setLoading] = useState <boolean> (false)
     

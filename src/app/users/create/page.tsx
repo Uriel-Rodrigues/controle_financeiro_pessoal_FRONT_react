@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar biblioteca para criação de links
 import Link from "next/link";
+// importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 
 interface User {
@@ -86,9 +88,9 @@ export default function User() {
                 {/* mostrar carregando */}
                 {loading && <p>Carregando...</p>}
                 {/* mostar mensagem deerro caso tenha */}
-                {error && <p>{error}</p>}
+                <AlertMessage type="error" message={error}/>
                 {/* mostrar mensagem de sucesso caso tenha */}
-                {success && <p>{success}</p>}
+                <AlertMessage type="success" message={success}/>
 
                 {/* mostrar conteudo se tudo ok */}
                 {!loading && !error && (  
@@ -103,6 +105,8 @@ export default function User() {
                                     className="form-input-login"
                                     {...register("name")}
                                 />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.name && <AlertMessage type="error" message={errors.name.message ?? null}/>}
                             </div>
                             <br/>
                             <div className="form-group-login">
@@ -114,6 +118,8 @@ export default function User() {
                                     className="form-input-login"
                                     {...register("email")}
                                 />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.email && <AlertMessage type="error" message={errors.email.message ?? null}/>}
                             </div>
                             <br/>
                             <div className="form-group-login">
@@ -125,12 +131,14 @@ export default function User() {
                                     className="form-input-login"
                                     {...register("password")}
                                 />
+                                {/*exibir mensagem de erro na validação do campo*/}
+                                {errors.password && <AlertMessage type="error" message={errors.password.message ?? null}/>}
                             </div>
                             <br/>
                             <div className="btn-group-login">
-                                <Link href= "/login">Login</Link>
+                                <Link href= "/login" className="link-login">Login</Link>
                                 
-                                <button type="submit" disabled={loading}>
+                                <button type="submit" disabled={loading} className="btn-primary-md">
                                     {loading ? "Cadastrando..." : "Cadastrar"}
                                 </button>
                             </div>

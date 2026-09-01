@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar componente de Layout
 import Layout from "@/app/components/layout";
+//importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 
 interface FinancialGoals {
@@ -127,6 +129,8 @@ export default function FinancialGoals() {
                                     className="form-input"
                                     {...register("title")}
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.title && <AlertMessage type="error" message={errors.title.message ?? null}/>}
                             </div>
                             <br/>
                             <div className="flex items-center gap-2">
@@ -138,6 +142,8 @@ export default function FinancialGoals() {
                                     {...register("description")}
                                 />
                             </div>
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
                             <br/>
                             <div>
                                 <label htmlFor="targetAmountFinancial" className="form-label">valor alvo: </label>
@@ -148,6 +154,8 @@ export default function FinancialGoals() {
                                     placeholder="valor desejado"
                                     {...register("target_amount")}
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.target_amount && <AlertMessage type="error" message={errors.target_amount.message ?? null}/>}
                             </div>
                             <br/>
                             <div>
@@ -159,6 +167,8 @@ export default function FinancialGoals() {
                                     placeholder="valor atual"
                                     {...register("current_amount")}
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.current_amount && <AlertMessage type="error" message={errors.current_amount.message ?? null}/>}
                             </div>
                             <br/>
                             <div>
@@ -169,6 +179,8 @@ export default function FinancialGoals() {
                                     className="form-input"
                                     {...register("target_date")}
                                 />
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.target_date && <AlertMessage type="error" message={errors.target_date.message ?? null}/>}
                             </div>
                             <br/>
                             <div>

@@ -11,6 +11,8 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/deleteButton";
 //importar componente de proteção de rotas 
 import ProtectedRoute from "@/app/components/protectedRoute";
+// importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 interface User {
     id: number,
@@ -87,9 +89,9 @@ export default function UserList() {
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
             {/* mostrar menssagem de erro caso tenha */}
-            {error && <p>{error}</p>}
+            <AlertMessage type="error" message={error}/>
             {/* mostrar menssagem sucesso caso tenha */}
-            {success && <p>{success}</p>}
+            <AlertMessage type="success" message={success}/>
 
             {/* mostrar tabela com registros se tudo ok */}
             {!loading && !error && (

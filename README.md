@@ -41,6 +41,10 @@ npm i axios
 ```
 npm install @hookform/resolvers yup react-hook-form
 ```
+*6 - instalar a biblioteca para gerar graficos*
+```
+npm install recharts
+```
 ## como enviar e baixar os arquivos do git rub
 
 *1 - Baixar os arquivos do git*

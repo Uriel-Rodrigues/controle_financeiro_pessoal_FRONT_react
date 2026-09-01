@@ -114,10 +114,9 @@ export default function FinancialGoals() {
                             <h3 className="content-box-title">Metas Financeiras</h3>
                             <div className="content-box-btn">
                                 <a href={`/financialGoals/create`} className="btn-success aling-icon-btn">
-                                    {/* <!-- svg user-plus (Heroicons) --> */}
+                                    {/* <!-- svg plus-circle (Heroicons) --> */}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                     </svg>
                                     <span>Cadastrar Meta</span>
                                 </a>
@@ -131,12 +130,12 @@ export default function FinancialGoals() {
                             <thead>
                                 <tr className="table-row-header">
                                     <th className="table-header">id</th>
-                                    <th className="table-header">title</th>
-                                    <th className="table-header">description</th>
-                                    <th className="table-header">target_amount</th>
-                                    <th className="table-header">current_amount</th>
-                                    <th className="table-header">target_date</th>
-                                    <th className="table-header">status</th>                         
+                                    <th className="table-header">Título</th>
+                                    <th className="table-header">Descrição</th>
+                                    <th className="table-header">Valor Alvo</th>
+                                    <th className="table-header">Valor Atual</th>
+                                    <th className="table-header">Data Alvo</th>
+                                    <th className="table-header">Status</th>                         
                                 </tr>
                             </thead>
                             <tbody>
@@ -164,14 +163,17 @@ export default function FinancialGoals() {
                                 ))}
                             </tbody>
                         </table>
-                    </div>
-                    
-                    {/* criar paginação */}
-                    <Pagination
+                        {/* mensagem caso nao exista registros */} 
+                        {!loading && !error && financialGoals.length === 0 && (
+                        <span className="content-box-title">Nenhum registro encontrado!</span>   
+                        )}
+                        {/* criar paginação */}
+                        <Pagination
                         currentPage={currentPage}
                         lastPage={lastPage}
                         onPaginationChange={setCurrentPage}
-                    />
+                        />
+                    </div>
                 </main>
             )}
         </Layout>

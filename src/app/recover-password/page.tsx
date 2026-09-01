@@ -11,6 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form"; 
 //importa hooks do react para usar o estado e os efeitos colaterais
 import { useState } from "react";
+// importar biblioteca para criat Links
+import Link from "next/link";
 
 //esquema de validação yup
 const schema = yup.object().shape({
@@ -74,35 +76,51 @@ export default function RecoverPassword () {
         }
     }
     return(
-        <div>
+        <div className="bg-login">
 
-            <h1>Recuperar senha</h1>
-            <br />
-            {/* mostrar carregando */}
-            {loading && <p>carregando...</p>}
-            {/* exibir erro se ouver */}
-            {error && <p style={{color: "#AB080B"}}>{error}</p>}
-            {/* exibir sucesso se ouver  */}
-            {success && <p style= {{color: "#3CB648"}}>{success}</p>}
+            {/* div central */}
+            <div className="card-login">
 
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <label htmlFor="email">E-mail: </label>
-                    <input
-                        id="email" 
-                        type="text"
-                        placeholder="Digite seu email"
-                        className="border" 
-                        {...register('email')}
-                    />
-                    {/* exibir erro de validação de campo */}
-                    {errors.email && <p style={{color: "#AB080B"}}>{errors.email.message}</p>}
+                {/* div com a imagem */}
+                <div className="logo-wrapper-login">
+                    <img src="/image/dindinnn.png" alt="logo" className="logo-login"></img>
                 </div>
-                <br />
-                <button type="submit" disabled = {loading} className="border">
-                    {loading ? "carregando..." : "Submit"}  
-                </button>
-            </form>
+
+                <h1 className="title-login">Recuperar senha</h1>
+
+                {/* mostrar carregando */}
+                {loading && <p>carregando...</p>}
+                {/* exibir erro se ouver */}
+                {error && <p style={{color: "#AB080B"}}>{error}</p>}
+                {/* exibir sucesso se ouver  */}
+                {success && <p style= {{color: "#3CB648"}}>{success}</p>}
+                <div>
+                    <form onSubmit={handleSubmit(onSubmit)} className="mt-4">
+                        <div className="form-group-login">
+                            <label htmlFor="email" className="form-label-login">E-mail: </label>
+                            <input
+                                id="email" 
+                                type="text"
+                                placeholder="Digite seu email"
+                                className="form-input-login" 
+                                {...register('email')}
+                            />
+                            {/* exibir erro de validação de campo */}
+                            {errors.email && <p style={{color: "#AB080B"}}>{errors.email.message}</p>}
+                        </div>
+                        <div className="btn-group-login">
+                            <Link href="/login" className="link-login">Login</Link>
+
+                            <button type="submit" disabled = {loading} className="btn-primary-md">
+                            {loading ? "carregando..." : "Recuperar"}  
+                        </button>
+                        </div>
+                        <div className="mt-4 text-center">
+                            <Link href={'/users/create'} className="link-login">Criar nova conta!</Link>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

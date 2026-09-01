@@ -1,12 +1,16 @@
 'use client'
-import DeleteButton from "@/app/components/deleteUserButton"
+//importar componente para de botão deletar
+import DeleteUserButton from "@/app/components/deleteUserButton"
 //importar instancia de conexão com a API
 import instance from "@/services/api"
 //hook para manipular a navegação do usuario 
 import { useRouter } from "next/navigation"
 //importa hooks do react para usar o estado e os efeitos colaterais
 import { useState, useEffect} from "react"
+// importar componente de layout
 import Layout from "@/app/components/layout"
+// importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 interface User {
     name: string,
@@ -72,9 +76,9 @@ export default function UserDetail () {
             {/* mostrar carregando */}
             {loading && <p>carregando...</p>}
             {/* mostrar mensagem de erro casotenha */}
-            {error && <p>{error}</p>}
+            <AlertMessage type="error" message={error}/>
             {/* mostrar mensagem de success caso tenha */}
-            {success && <p>{success}</p>}
+            <AlertMessage type="success" message={success}/>
 
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
@@ -97,11 +101,11 @@ export default function UserDetail () {
                             <h3 className="content-box-title">Visualizar Dados</h3>
                             <div className="content-box-btn">
                                 <a href={`/users/resetPassword`} className="btn-info aling-icon-btn">
-                                    {/* <!-- svg list-bullet (Heroicons) --> */}
+                                    {/* <!-- svg lock-closed (Heroicons) --> */}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-4">
-
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3.75 12h.007v.008H3.75V12Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-.375 5.25h.007v.008H3.75v-.008Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                                     </svg>
+
                                     <span>Atualizar senha</span>
                                 </a>
                                 <a href={`/users/edit`} className="btn-warning aling-icon-btn ">
@@ -112,8 +116,8 @@ export default function UserDetail () {
                                     <span>Editar</span>
                                 </a>
                                 {/* aplicando botão "deletar" */}
-                                <DeleteButton
-                                    route = "user"
+                                <DeleteUserButton
+                                    route = "users"
                                     onSuccess={handleSuccess}
                                     setError={setError}
                                     setSuccess={setSuccess}

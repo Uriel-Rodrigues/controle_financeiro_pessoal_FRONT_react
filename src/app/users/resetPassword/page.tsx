@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 // importar componente de Layout
 import Layout from "@/app/components/layout";
+// importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 
 //esquema para validação de formulario
@@ -90,9 +92,9 @@ export default function User () {
             {/* mostrar carregando  */}
             {loading && <p>carregando...</p>}
             {/* mostrar mensagem de erro caso tenha */}
-            {error && <p>{error}</p>}
+            <AlertMessage type="error" message={error}/>
             {/* mostrar mensagem de sucesso caso tenha */}
-            {success && <p>{success}</p>}
+            <AlertMessage type="success" message={success}/>
             {/* mostrar conteudo se tudo ok */}
             {!loading && !error && (
                 <main className="main-content">
@@ -137,7 +139,7 @@ export default function User () {
                                     className="form-input" 
                                 />
                                 {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.atualPassword && <p>{errors.atualPassword.message}</p>}
+                                {errors.atualPassword && <AlertMessage type="error" message={errors.atualPassword.message ?? null}/>}
                             </div>
 
                             <br />
@@ -152,7 +154,7 @@ export default function User () {
                                     className="form-input"
                                 />
                                 {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.newPassword && <p>{errors.newPassword.message}</p>}
+                                {errors.newPassword && <AlertMessage type="error" message={errors.newPassword.message ?? null}/>}
                             </div>
 
                             <br />
@@ -167,7 +169,7 @@ export default function User () {
                                     className="form-input"
                                 />
                                 {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+                                {errors.confirmPassword && <AlertMessage type="error" message={errors.confirmPassword.message ?? null}/>}
                             </div>
 
                             <br />

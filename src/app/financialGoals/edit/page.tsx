@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import {useForm} from "react-hook-form"
 //importar componente de layout
 import Layout from "@/app/components/layout";
+//importar componente de alerta
+import AlertMessage from "@/app/components/alertMessage";
 
 interface Financial{
     title: string,
@@ -198,8 +200,8 @@ export default function FinancialGoals() {
                                     {...register('title')}
                                     className="form-input" 
                                 />
-                                {/*exibir mensagem de erro na validação do campo*/}
-                                {errors.title && <p>{errors.title.message}</p>}
+                            {/*exibir mensagem de erro na validação do campo*/}
+                            {errors.title && <AlertMessage type="error" message={errors.title.message ?? null}/>}
                             </div>
                             <br />
                             
@@ -213,7 +215,7 @@ export default function FinancialGoals() {
                                     className="form-input" 
                                 />
                             {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.description && <p>{errors.description.message}</p>}
+                            {errors.description && <AlertMessage type="error" message={errors.description.message ?? null}/>}
                             </div>
                             <br />
                             
@@ -227,7 +229,7 @@ export default function FinancialGoals() {
                                     className="form-input" 
                                 />
                             {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.target_amount && <p>{errors.target_amount.message}</p>}
+                            {errors.target_amount && <AlertMessage type="error" message={errors.target_amount.message ?? null}/>}
                             </div>
                             <br />
                             
@@ -241,7 +243,7 @@ export default function FinancialGoals() {
                                     className="form-input" 
                                 />
                             {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.current_amount && <p>{errors.current_amount.message}</p>}
+                            {errors.current_amount && <AlertMessage type="error" message={errors.current_amount.message ?? null}/>}
                             </div>
                             <br />
                             
@@ -254,7 +256,7 @@ export default function FinancialGoals() {
                                     className="form-input" 
                                 />
                             {/*exibir mensagem de erro na validação do campo*/}
-                            {errors.target_date && <p>{errors.target_date.message}</p>}
+                            {errors.target_date && <AlertMessage type="error" message={errors.target_date.message ?? null}/>}
                             </div>
                             <br />
 

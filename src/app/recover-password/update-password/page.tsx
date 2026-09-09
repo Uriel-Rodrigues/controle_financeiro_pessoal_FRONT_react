@@ -13,6 +13,8 @@ import * as yup from 'yup'
 import instance from "@/services/api";
 //importar biblioteca para criar links 
 import Link from "next/link";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 
 //schema de validação com yup 
@@ -138,7 +140,7 @@ export default function updatePassword () {
             <h1>Recuperar Senha</h1>
 
             {/* Exibir o carregando */}
-            {loading && <p>Carregando...</p>}
+            {loading && <LoadingSpinner/>}
             {/* Exibe mensagem de erro */}
             {error && <p style={{ color: "#f00" }}>{error}</p>}
             {/* Exibe mensagem de sucesso */}

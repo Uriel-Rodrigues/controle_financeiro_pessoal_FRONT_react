@@ -14,6 +14,9 @@ import {useForm} from "react-hook-form"
 import Layout from "@/app/components/layout";
 //importar componente de alerta
 import AlertMessage from "@/app/components/alertMessage";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
+
 
 interface Financial{
     title: string,
@@ -140,7 +143,7 @@ export default function FinancialGoals() {
     return(
         <Layout>
             {/* mostrar carregando  */}
-            {loading && <p>carregando...</p>}
+            {loading && <LoadingSpinner/>}
             {/* mostrar mensagem de erro caso tenha */}
             {error && <p>{error}</p>}
             {/* mostrar mensagem de sucesso caso tenha */}

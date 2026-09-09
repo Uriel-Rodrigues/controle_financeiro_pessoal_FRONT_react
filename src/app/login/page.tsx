@@ -13,6 +13,8 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 //importa hooks do react para usar o estado e os efeitos colaterais
 import { useState ,useEffect } from "react";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 //criar esquema de validação com yup
 const schema = yup.object().shape({
@@ -96,7 +98,7 @@ export default function Login (){
                 <br />
 
                 {/* mostrar carregamento */}
-                {loading && <p>{loading}</p>}
+                {loading && <LoadingSpinner/>}
                 {/* mostrar erro caso tenh */}
                 {error && <p style={{color:"#AB080B"}}>{error}</p>}
                 {/* mostrar mensagfem de sucesso caso tenha */}

@@ -13,6 +13,8 @@ import DeleteButton from "@/app/components/deleteButton";
 import ProtectedRoute from "@/app/components/protectedRoute";
 // importar componente de alerta
 import AlertMessage from "@/app/components/alertMessage";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 interface User {
     id: number,
@@ -87,7 +89,7 @@ export default function UserList() {
             <h1>User List</h1>
 
             {/* mostrar carregando  */}
-            {loading && <p>carregando...</p>}
+            {loading && <LoadingSpinner/>}
             {/* mostrar menssagem de erro caso tenha */}
             <AlertMessage type="error" message={error}/>
             {/* mostrar menssagem sucesso caso tenha */}

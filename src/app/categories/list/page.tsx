@@ -11,6 +11,8 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/deleteButton";
 // importar componente de layout
 import Layout from "@/app/components/layout";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 
 interface Category{
@@ -88,7 +90,7 @@ export default function Categories(){
                 <p>Nenhum registro encontrado!</p>
             )} */}
             {/* mostrar carregando  */}
-            {loading && <p>carregando...</p>}
+            {loading && <LoadingSpinner/>}
             {/* mostrar menssagem de erro caso tenha */}
             {error && <p>{error}</p>}
             {/* mostrar menssagem sucesso caso tenha */}

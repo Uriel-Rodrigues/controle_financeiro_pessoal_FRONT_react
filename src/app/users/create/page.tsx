@@ -13,6 +13,8 @@ import {useForm} from "react-hook-form"
 import Link from "next/link";
 // importar componente de alerta
 import AlertMessage from "@/app/components/alertMessage";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 
 interface User {
@@ -86,7 +88,7 @@ export default function User() {
                 <br/>
 
                 {/* mostrar carregando */}
-                {loading && <p>Carregando...</p>}
+                {loading && <LoadingSpinner/>}
                 {/* mostar mensagem deerro caso tenha */}
                 <AlertMessage type="error" message={error}/>
                 {/* mostrar mensagem de sucesso caso tenha */}

@@ -10,6 +10,8 @@ import Link from "next/link";
 import DeleteButton from "@/app/components/deleteButton";
 //importar componente de Layout
 import Layout from "@/app/components/layout";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 interface Transactions {
     id: number,
@@ -86,7 +88,7 @@ export default function Transaction (){
             {/* transaction.length === 0 && */}
 
             {/* mostrar carregando  */}
-            {loading && <p>carregando...</p>}
+            {loading && <LoadingSpinner/>}
             {/* mostrar menssagem de erro caso tenha */}
             {error && <p>{error}</p>}
             {/* mostrar menssagem sucesso caso tenha */}

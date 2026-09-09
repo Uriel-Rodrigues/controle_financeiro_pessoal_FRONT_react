@@ -17,6 +17,8 @@ import { useState, useEffect} from "react"
 import instance from "@/services/api"
 // importar componente de alerta
 import AlertMessage from "@/app/components/alertMessage";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 interface TransactionReport{
     month: string,
@@ -88,7 +90,7 @@ export default function Home () {
                         </div>
 
                         {/* mostrar carregando */}
-                        {loading && <p>carregando...</p>}
+                        {loading && <LoadingSpinner/>}
                         {/* mostrar mensagem de erro casotenha */}
                         <AlertMessage type="error" message={error}/>
                         {/* mostrar mensagem de success caso tenha */}

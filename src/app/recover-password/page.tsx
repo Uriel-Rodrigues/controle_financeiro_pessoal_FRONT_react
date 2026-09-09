@@ -13,6 +13,8 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 // importar biblioteca para criat Links
 import Link from "next/link";
+//importar componente de spinner de loading
+import LoadingSpinner from "@/app/components/loadinSpinner";
 
 //esquema de validação yup
 const schema = yup.object().shape({
@@ -89,7 +91,7 @@ export default function RecoverPassword () {
                 <h1 className="title-login">Recuperar senha</h1>
 
                 {/* mostrar carregando */}
-                {loading && <p>carregando...</p>}
+                {loading && <LoadingSpinner/>}
                 {/* exibir erro se ouver */}
                 {error && <p style={{color: "#AB080B"}}>{error}</p>}
                 {/* exibir sucesso se ouver  */}
